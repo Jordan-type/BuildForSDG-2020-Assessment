@@ -95,7 +95,7 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   // challenge two //  can be modified to func  const estimatedServereCases {} & const estimatedBedSpaceAvailablility {}
   // impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
-  severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
+  // severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
   // impact.hospitalBedsByRequestedTime = availableBeds(impact.severeCasesByRequestedTime);
   // severeImpact.hospitalBedsByRequestedTime = availableBeds(severeImpact.severeCasesByRequestedTime);
   // challenge three //  can be modified to func estimatedCasesForICU {} & const estimatedCasesForVentilators & estimateddollarsInFlight
