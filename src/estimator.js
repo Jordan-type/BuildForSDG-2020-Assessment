@@ -59,20 +59,16 @@ const covid19ImpactEstimator = (data) => {
     dollarsInFlight: 0
   };
 
-  //  normalizing days to check weeks and months
-  switch (periodType) {
-    case 'weeks':
-      timeToElapse *= 7;
-      break;
-    case 'months':
-      timeToElapse *= 30;
-  }
+  // adding truncation  normalizing days to check weeks and months
+  if (periodType === 'months') timeToElapse = Math.trunc(timeToElapse * 30);
+  else if (periodType === 'weeks') timeToElapse = Math.trunc(timeToElapse * 7);
+  else timeToElapse = Math.trunc(timeToElapse * 1);
   // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
   const timeFactor = (currentlyInfected) => {
-    const power = parseInt(timeToElapse / 3);
+    const power = Math.trunc(timeToElapse / 3);
     return currentlyInfected * (2 ** power);
   };
-  // calculate AvailableBeds ByRequestedTime
+  // compute AvailableBeds ByRequestedTime
   const availableBeds = (severeCasesByRequestedTime) => {
     // assuming that totalhospitalbeds available = 23 - 100%
     // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
@@ -80,7 +76,12 @@ const covid19ImpactEstimator = (data) => {
     const bedsAvailable = totalHospitalBeds * 0.35;
     const shortage = bedsAvailable - severeCasesByRequestedTime;
     const result = shortage < 0 ? shortage : bedsAvailable;
-    return parseInt(result);
+    return Math.trunc(result);
+  };
+  const computedollarsinfight = (infectionsByRequestedTime) => {
+    const infections = infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation;
+    const result = infections / timeToElapse;
+    return Math.trunc(result);
   };
   // challenge one //  can be modified to func estimateCurrentlyInfected {} & const estimateProjectedInfction {}
   impact.currentlyInfected = reportedCases * 10;
@@ -88,18 +89,20 @@ const covid19ImpactEstimator = (data) => {
   impact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   // challenge two //  can be modified to func  const estimatedServereCases {} & const estimatedBedSpaceAvailablility {}
-  impact.severeCasesByRequestedTime = impact.infectionsByRequestedTime * 0.15; // 15%
-  severeImpact.severeCasesByRequestedTime = impact.infectionsByRequestedTime * 0.15;
+  impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
+  severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
   impact.hospitalBedsByRequestedTime = availableBeds(impact.severeCasesByRequestedTime);
   severeImpact.hospitalBedsByRequestedTime = availableBeds(severeImpact.severeCasesByRequestedTime);
   // challenge three //  can be modified to func estimatedCasesForICU {} & const estimatedCasesForVentilators & estimateddollarsInFlight
-  impact.casesForICUByRequestedTime = impact.infectionsByRequestedTime * 0.05;
-  impact.casesForVentilatorsByRequestedTime = impact.infectionsByRequestedTime * 0.02;
-  impact.dollarsInFlight = impact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
+  impact.casesForICUByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.05);
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.02);
+  impact.dollarsInFlight = computedollarsinfight(impact.infectionsByRequestedTime);
+  // avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
 
-  severeImpact.casesForICUByRequestedTime = severeImpact.infectionsByRequestedTime * 0.05;
-  severeImpact.casesForVentilatorsByRequestedTime = severeImpact.infectionsByRequestedTime * 0.02;
-  severeImpact.dollarsInFlight = severeImpact.infectionsByRequestedTime * avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
+  severeImpact.casesForICUByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.05);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.02);
+  severeImpact.dollarsInFlight = computedollarsinfight(severeImpact.infectionsByRequestedTime);
+  // avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
   // the input data inputed  // your best  case  estimation output // your severe case estimation output
   return {
     data,
