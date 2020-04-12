@@ -33,21 +33,33 @@
 
 const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
+  // const {
+  //   region,
+  //   periodType,
+  //   timeToElapse,
+  //   reportedCases,
+  //   population,
+  //   totalHospitalBeds
+  // } = data;
+  //   // Destructuring the region of the given data
+  // const {
+  //   name,
+  //   avgAge,
+  //   avgDailyIncomeInUSD,
+  //   avgDailyIncomePopulation
+  // } = region;
   const {
-    region,
+    region: {
+      avgDailyIncomeInUSD,
+      avgDailyIncomePopulation
+    },
     periodType,
-    timeToElapse,
     reportedCases,
-    population,
     totalHospitalBeds
   } = data;
-    // Destructuring the region of the given data
-  const {
-    name,
-    avgAge,
-    avgDailyIncomeInUSD,
-    avgDailyIncomePopulation
-  } = region;
+  let {
+    timeToElapse
+  } = data;
 
   const impact = {};
   const severeImpact = {};
