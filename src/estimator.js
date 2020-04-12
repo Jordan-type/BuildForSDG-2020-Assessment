@@ -61,9 +61,6 @@ const covid19ImpactEstimator = (data) => {
     timeToElapse
   } = data;
 
-  const impact = {};
-  const severeImpact = {};
-
   // adding truncation  normalizing days to check weeks and months
   if (periodType === 'months') timeToElapse = Math.trunc(timeToElapse * 30);
   else if (periodType === 'weeks') timeToElapse = Math.trunc(timeToElapse * 7);
@@ -88,6 +85,9 @@ const covid19ImpactEstimator = (data) => {
     const result = infections / timeToElapse;
     return Math.trunc(result);
   };
+
+  const impact = {};
+  const severeImpact = {};
   // challenge one //  can be modified to func estimateCurrentlyInfected {} & const estimateProjectedInfction {}
   impact.currentlyInfected = reportedCases * 10;
   severeImpact.currentlyInfected = reportedCases * 50;
