@@ -22,6 +22,15 @@
   totalHospitalBeds: 1380614
 } */
 
+// Output data structured as
+/*
+{
+    data: {}, // the input data you got
+    impact: {}, // your best case estimation
+    severeImpact: {} // your severe case estimation
+}
+*/
+
 const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
   const {
@@ -40,24 +49,8 @@ const covid19ImpactEstimator = (data) => {
     avgDailyIncomePopulation
   } = region;
 
-  const impact = {
-    currentlyInfected: 0,
-    infectionsByRequestedTime: 0,
-    severeCasesByRequestedTime: 0,
-    hospitalBedsByRequestedTime: 0,
-    casesForICUByRequestedTime: 0,
-    casesForVentilatorsByRequestedTime: 0,
-    dollarsInFlight: 0
-  };
-  const severeImpact = {
-    currentlyInfected: 0,
-    infectionsByRequestedTime: 0,
-    severeCasesByRequestedTime: 0,
-    hospitalBedsByRequestedTime: 0,
-    casesForICUByRequestedTime: 0,
-    casesForVentilatorsByRequestedTime: 0,
-    dollarsInFlight: 0
-  };
+  const impact = {};
+  const severeImpact = {};
 
   // adding truncation  normalizing days to check weeks and months
   if (periodType === 'months') timeToElapse = Math.trunc(timeToElapse * 30);
