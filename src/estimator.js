@@ -5,8 +5,22 @@
 /* eslint-disable default-case */
 /* eslint-disable no-unused-vars */
 /* eslint-disable linebreak-style */
-const $q = document.querySelector.bind(document);
-const $qa = document.querySelectorAll.bind(document);
+// const $q = document.querySelector.bind(document);
+// const $qa = document.querySelectorAll.bind(document);
+// intial data structure
+/* const input = {
+  region: {
+    name: "Africa",
+    avgAge: 19.7,
+    avgDailyIncomeInUSD: 5,
+    avgDailyIncomePopulation: 0.71
+  },
+  periodType: "days",
+  timeToElapse: 58,
+  reportedCases: 674,
+  population: 66622705,
+  totalHospitalBeds: 1380614
+} */
 
 const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
@@ -21,7 +35,6 @@ const covid19ImpactEstimator = (data) => {
     // Destructuring the region of the given data
   const {
     name,
-    // eslint-disable-next-line no-unused-vars
     avgAge,
     avgDailyIncomeInUSD,
     avgDailyIncomePopulation
@@ -46,7 +59,7 @@ const covid19ImpactEstimator = (data) => {
     dollarsInFlight: 0
   };
 
-  //  normalizing days to chech weeks and months
+  //  normalizing days to check weeks and months
   switch (periodType) {
     case 'weeks':
       timeToElapse *= 7;
@@ -54,7 +67,7 @@ const covid19ImpactEstimator = (data) => {
     case 'months':
       timeToElapse *= 30;
   }
-  // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days)
+  // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
   const timeFactor = (currentlyInfected) => {
     const power = parseInt(timeToElapse / 3);
     return currentlyInfected * (2 ** power);
@@ -96,3 +109,136 @@ const covid19ImpactEstimator = (data) => {
 };
 
 // export default covid19ImpactEstimator;
+
+// const goEstimate = $q('[data-go-estimate]');
+// // Create div // Add classes
+// const showAlert = (className, message) => {
+//   const div = document.createElement('div');
+//   div.className = `alert alert-${className}`;
+//   div.appendChild(document.createTextNode(message)); // Add text
+//   const container = document.querySelector('#today'); // Get parent
+//   const form = document.querySelector('#coivd-form'); // Get form
+//   container.insertBefore(div, form); // Insert alert
+//   // Timeout after 3 sec
+//   setTimeout(() => {
+//     document.querySelector('.alert').remove();
+//   }, 3000);
+//   //   div.innerHTML = `${message}`;
+//   //   document.body.appendChild(div);
+//   //   setTimeout(() => div.remove(), 3000);
+// };
+
+// goEstimate.addEventListener('click', (event) => {
+//   event.preventDefault();
+//   // input data
+//   const pType = $q('[data-period-type]');
+//   const tmToElapse = $q('[data-time-to-elapse]');
+//   const rCases = $q('[data-reported-cases]');
+//   const populatn = $q('[data-population]');
+//   const tHospitalBeds = $q('[data-total-hospital-beds]');
+
+//   const periodType = pType.value;
+//   const timeToElapse = parseInt(tmToElapse.value);
+//   const reportedCases = parseInt(rCases.value);
+//   const population = parseInt(populatn.value);
+//   const totalHospitalBeds = parseInt(tHospitalBeds.value);
+
+//   if (!periodType || !timeToElapse || !reportedCases || !population || !totalHospitalBeds) {
+//     // Error alert
+//     showAlert('error', 'Oops! for better results Please fill all fields.');
+//   } else {
+//     goEstimate.disabled = true;
+
+//     const input = {
+//       region: {
+//         name: 'Africa',
+//         avgAge: 19.7,
+//         avgDailyIncomeInUSD: 5,
+//         avgDailyIncomePopulation: 0.71
+//       },
+//       periodType,
+//       timeToElapse,
+//       reportedCases,
+//       population,
+//       totalHospitalBeds
+//     };
+//     // call covid19ImapactEstimator
+//     const covid19 = covid19ImpactEstimator(input);
+//     const { impact } = covid19;
+//     const { severeImpact } = covid19;
+//     const impactUI = $q('#impact');
+//     const severeImpactUI = $q('#severeImpact');
+//     const impactsContainner = $q('.impacts');
+//     // Insert cols
+//     impactUI.innerHTML = `
+//       <tr>
+//         <th>Currently Infected</th>
+//         <td>${impact.currentlyInfected}</td>
+//       </tr>
+//       <tr>
+//         <th>Infections By Requested Time</th>
+//         <td>${impact.infectionsByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Severe Cases By Requested Time</th>
+//         <td>${impact.severeCasesByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Hospital Beds By Requested Time</th>
+//         <td>${impact.hospitalBedsByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Cases For ICU By Requested Time</th>
+//         <td>${impact.casesForICUByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Cases For Ventilators By Requested Time</th>
+//         <td>${impact.casesForVentilatorsByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Dollars In Flight</th>
+//         <td>${impact.dollarsInFlight}</td>
+//       </tr>
+//     `;
+
+//     severeImpactUI.innerHTML = `
+//       <tr>
+//         <th>Currently Infected</th>
+//         <td>${severeImpact.currentlyInfected}</td>
+//       </tr>
+//       <tr>
+//         <th>Infections By Requested Time</th>
+//         <td>${severeImpact.infectionsByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Severe Cases By Requested Time</th>
+//         <td>${severeImpact.severeCasesByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Hospital Beds By Requested Time</th>
+//         <td>${severeImpact.hospitalBedsByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Cases For ICU By Requested Time</th>
+//         <td>${severeImpact.casesForICUByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Cases For Ventilators By Requested Time</th>
+//         <td>${severeImpact.casesForVentilatorsByRequestedTime}</td>
+//       </tr>
+//       <tr>
+//         <th>Dollars In Flight</th>
+//         <td>${severeImpact.dollarsInFlight}</td>
+//       </tr>
+//     `;
+
+//     showAlert('success', 'Data Submitted successfuly, scroll to view analysis.');
+//     impactsContainner.classList.remove('is-hidden');
+//     goEstimate.disabled = false;
+//     pType.value = '';
+//     tmToElapse.value = '';
+//     rCases.value = '';
+//     populatn.value = '';
+//     tHospitalBeds.value = '';
+//   }
+// });
