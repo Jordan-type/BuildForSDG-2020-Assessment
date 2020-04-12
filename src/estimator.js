@@ -62,9 +62,11 @@ const covid19ImpactEstimator = (data) => {
   } = data;
 
   // adding truncation  normalizing days to check weeks and months
-  if (periodType === 'months') timeToElapse = Math.trunc(timeToElapse * 30);
-  else if (periodType === 'weeks') timeToElapse = Math.trunc(timeToElapse * 7);
-  else timeToElapse = Math.trunc(timeToElapse * 1);
+  if (periodType === 'months') {
+    timeToElapse = Math.trunc(timeToElapse * 30);
+  } else if (periodType === 'weeks') {
+    timeToElapse = Math.trunc(timeToElapse * 7);
+  } else timeToElapse = Math.trunc(timeToElapse * 1);
   // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
   const timeFactor = (currentlyInfected) => {
     const power = Math.trunc(timeToElapse / 3);
@@ -89,6 +91,7 @@ const covid19ImpactEstimator = (data) => {
   const impact = {};
   impact.currentlyInfected = reportedCases * 10;
   impact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
+
   const severeImpact = {};
   // challenge one //  can be modified to func estimateCurrentlyInfected {} & const estimateProjectedInfction {}
   severeImpact.currentlyInfected = reportedCases * 50;
