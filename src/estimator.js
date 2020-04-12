@@ -111,7 +111,7 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-// export default covid19ImpactEstimator;
+export default covid19ImpactEstimator;
 
 // const goEstimate = $q('[data-go-estimate]');
 // // Create div // Add classes
