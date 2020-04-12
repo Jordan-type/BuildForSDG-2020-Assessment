@@ -62,16 +62,38 @@ const covid19ImpactEstimator = (data) => {
   } = data;
 
   // adding truncation  normalizing days to check weeks and months
-  if (periodType === 'months') {
-    timeToElapse = Math.trunc(timeToElapse * 30);
-  } else if (periodType === 'weeks') {
-    timeToElapse = Math.trunc(timeToElapse * 7);
-  } else timeToElapse = Math.trunc(timeToElapse * 1);
-  // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
-  const timeFactor = (currentlyInfected) => {
-    const power = Math.trunc(timeToElapse / 3);
-    return currentlyInfected * (2 ** power);
+  // if (periodType === 'months') {
+  //   timeToElapse = Math.trunc(timeToElapse * 30);
+  // } else if (periodType === 'weeks') {
+  //   timeToElapse = Math.trunc(timeToElapse * 7);
+  // } else timeToElapse = Math.trunc(timeToElapse * 1);
+  const timeFactor = (currentlyInfected, timeToElapse, periodType) => {
+    let infectionsByRequestedTime = null;
+    let days;
+    switch (periodType) {
+      case 'days':
+        infectionsByRequestedTime = currentlyInfected * (2 ** (Math.trunc(timeToElapse / 3)));
+        break;
+      case 'weeks':
+        days = timeToElapse * 7;
+        infectionsByRequestedTime = currentlyInfected * (2 ** (Math.trunc(days / 3)));
+        break;
+      case 'months':
+        days = timeToElapse * 30;
+        infectionsByRequestedTime = currentlyInfected * (2 ** (Math.trunc(days / 3)));
+        break;
+      default:
+        infectionsByRequestedTime = currentlyInfected * (2 ** (Math.trunc(timeToElapse / 3)));
+        break;
+    }
+
+    return infectionsByRequestedTime;
   };
+  // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
+  // const timeFactor = (currentlyInfected) => {
+  //   const power = Math.trunc(timeToElapse / 3);
+  //   return currentlyInfected * (2 ** power);
+  // };
   // compute AvailableBeds ByRequestedTime
   const availableBeds = (severeCasesByRequestedTime) => {
     // assuming that totalhospitalbeds available = 23 - 100%
@@ -83,8 +105,8 @@ const covid19ImpactEstimator = (data) => {
     return Math.trunc(result);
   };
   const computedollarsinfight = (infectionsByRequestedTime) => {
-    const infections = infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation;
-    const result = infections / timeToElapse;
+    const infight = infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation;
+    const result = infight / timeToElapse;
     return Math.trunc(result);
   };
 
