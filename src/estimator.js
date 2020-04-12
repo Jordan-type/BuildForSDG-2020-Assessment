@@ -87,11 +87,11 @@ const covid19ImpactEstimator = (data) => {
   };
 
   const impact = {};
+  impact.currentlyInfected = reportedCases * 10;
+  impact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   const severeImpact = {};
   // challenge one //  can be modified to func estimateCurrentlyInfected {} & const estimateProjectedInfction {}
-  impact.currentlyInfected = reportedCases * 10;
   severeImpact.currentlyInfected = reportedCases * 50;
-  impact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   // challenge two //  can be modified to func  const estimatedServereCases {} & const estimatedBedSpaceAvailablility {}
   // impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
