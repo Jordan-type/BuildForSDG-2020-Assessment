@@ -89,19 +89,19 @@ const covid19ImpactEstimator = (data) => {
   impact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   // challenge two //  can be modified to func  const estimatedServereCases {} & const estimatedBedSpaceAvailablility {}
-  impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
-  severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
-  impact.hospitalBedsByRequestedTime = availableBeds(impact.severeCasesByRequestedTime);
-  severeImpact.hospitalBedsByRequestedTime = availableBeds(severeImpact.severeCasesByRequestedTime);
+  // impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
+  // severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
+  // impact.hospitalBedsByRequestedTime = availableBeds(impact.severeCasesByRequestedTime);
+  // severeImpact.hospitalBedsByRequestedTime = availableBeds(severeImpact.severeCasesByRequestedTime);
   // challenge three //  can be modified to func estimatedCasesForICU {} & const estimatedCasesForVentilators & estimateddollarsInFlight
-  impact.casesForICUByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.05);
-  impact.casesForVentilatorsByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.02);
-  impact.dollarsInFlight = computedollarsinfight(impact.infectionsByRequestedTime);
+  // impact.casesForICUByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.05);
+  // impact.casesForVentilatorsByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.02);
+  // impact.dollarsInFlight = computedollarsinfight(impact.infectionsByRequestedTime);
   // avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
 
-  severeImpact.casesForICUByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.05);
-  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.02);
-  severeImpact.dollarsInFlight = computedollarsinfight(severeImpact.infectionsByRequestedTime);
+  // severeImpact.casesForICUByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.05);
+  // severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.02);
+  // severeImpact.dollarsInFlight = computedollarsinfight(severeImpact.infectionsByRequestedTime);
   // avgDailyIncomePopulation * avgDailyIncomeInUSD * timeToElapse;
   // the input data inputed  // your best  case  estimation output // your severe case estimation output
   return {
