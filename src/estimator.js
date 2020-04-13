@@ -62,6 +62,7 @@ const covid19ImpactEstimator = (data) => {
   const {
     timeToElapse
   } = data;
+
   let factor;
   let days;
   // adding truncation  normalizing days to check weeks and months
@@ -76,10 +77,10 @@ const covid19ImpactEstimator = (data) => {
     factor = 2 ** Math.trunc(timeToElapse * 3);
   }
   // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
-  const timeFactor = (currentlyInfected) => {
-    const power = Math.trunc(timeToElapse / 3);
-    return currentlyInfected * (2 ** power);
-  };
+  // const timeFactor = (currentlyInfected) => {
+  //   const power = Math.trunc(timeToElapse / 3);
+  //   return currentlyInfected * (2 ** power);
+  // };
 
   // compute AvailableBeds ByRequestedTime
   const availableBeds = (severeCasesByRequestedTime) => {
@@ -99,12 +100,12 @@ const covid19ImpactEstimator = (data) => {
 
   const impact = {};
   impact.currentlyInfected = reportedCases * 10;
-  impact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
+  impact.infectionsByRequestedTime = (impact.currentlyInfected) * factor;
 
   const severeImpact = {};
   // challenge one //  can be modified to func estimateCurrentlyInfected {} & const estimateProjectedInfction {}
   severeImpact.currentlyInfected = reportedCases * 50;
-  severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
+  severeImpact.infectionsByRequestedTime = (impact.currentlyInfected) * factor;
   // challenge two //  can be modified to func  const estimatedServereCases {} & const estimatedBedSpaceAvailablility {}
   // impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
   // severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
