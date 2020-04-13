@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-const-assign */
@@ -50,23 +51,20 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** timeFactor);
 
   // challenge two
+  const impactRequestedTime = impact.infectionsByRequestedTime * 0.15;
+  const severeRequestedTime = impact.infectionsByRequestedTime * 0.15;
 
-  impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
-  severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
+  impact.severeCasesByRequestedTime = Math.trunc(impactRequestedTime); // 15%
+  severeImpact.severeCasesByRequestedTime = Math.trunc(severeRequestedTime); // 15%
 
   // compute AvailableBeds ByRequestedTime
-  const availableBeds = (severeCasesByRequestedTime) => {
-    // assuming that totalhospitalbeds available = 23 - 100%
-    // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
-    // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
-    const bedsAvailable = totalHospitalBeds * 0.35;
-    const shortage = bedsAvailable - severeCasesByRequestedTime;
-    const result = shortage < 0 ? shortage : bedsAvailable;
-    return Math.trunc(result);
-  };
+  const bedsAvailable = totalHospitalBeds * 0.35; // assuming that totalhospitalbeds available = 23 - 100%
+  const impactShortage = bedsAvailable - impactRequestedTime; // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
+  const severeShortage = bedsAvailable - severeRequestedTime; // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
 
-  impact.hospitalBedsByRequestedTime = availableBeds(impact.severeCasesByRequestedTime);
-  severeImpact.hospitalBedsByRequestedTime = availableBeds(severeImpact.severeCasesByRequestedTime);
+
+  impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage);
+  severeImpact.hospitalBedsByRequestedTime = Mathe.trunc(severeShortage);
 
 
   return {
