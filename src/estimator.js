@@ -63,8 +63,8 @@ const covid19ImpactEstimator = (data) => {
   const severeShortage = bedsAvailable - severeRequestedTime; // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
 
 
-  impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage);
-  severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage);
+  impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage * timeFactor);
+  severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage * timeFactor);
 
 
   return {
