@@ -84,30 +84,26 @@ const covid19ImpactEstimator = (data) => {
   // computation for dollars in fight
   const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUSD;
 
-  const impactmoneylose = (impact.infectionsByRequestedTime * computeIncome) / timeFactor;
-  const severemoneylose = (severeImpact.infectionsByRequestedTime * computeIncome) / timeFactor;
+  const impactmoneylose = (impact.infectionsByRequestedTime * computeIncome);
+  const severemoneylose = (severeImpact.infectionsByRequestedTime * computeIncome);
 
+  let usdInFight;
+  if (periodType === 'months') {
+    usdInFight = timeToElapse * 30;
 
-  impact.dollarsInFlight = Math.trunc(impactmoneylose);
-  severeImpact.dollarsInFlight = Math.trunc(severemoneylose);
+    impact.dollarsInFlight = Math.trunc((impactmoneylose) / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc((severemoneylose) / usdInFight);
+  } else if (periodType === 'weeks') {
+    usdInFight = timeToElapse * 7;
 
-  // let usdInFight = 0;
-  // if (periodType === 'months') {
-  //   usdInFight = timeToElapse * 30;
+    impact.dollarsInFlight = Math.trunc((impactmoneylose) / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc((severemoneylose) / usdInFight);
+  } else if (periodType === 'days') {
+    usdInFight = timeToElapse * 1;
 
-
-  //   severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
-  // } else if (periodType === 'weeks') {
-  //   usdInFight = timeToElapse * 7;
-
-  //   impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-  //   severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-  // } else if (periodType === 'days') {
-  //   usdInFight = timeToElapse * 1;
-
-  //   impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-  //   severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-  // }
+    impact.dollarsInFlight = Math.trunc((impactmoneylose) / usdInFight);
+    severeImpact.dollarsInFlight = Math.trunc((severemoneylose) / usdInFight);
+  }
 
   // impact.dollarsInFlight = Math.trunc((impact.infectionsByRequestedTime * compute) / usdInFight);
   // severeImpact.dollarsInFlight = Math.trunc((severeImpact.infectionsByRequestedTime * compute) / usdInFight);
@@ -135,4 +131,4 @@ const covid19ImpactEstimator = (data) => {
 // };
 // console.log(covid19ImpactEstimator(sample));
 
-// export default covid19ImpactEstimator;
+export default covid19ImpactEstimator;
