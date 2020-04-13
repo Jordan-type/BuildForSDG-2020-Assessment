@@ -9,7 +9,8 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
   const {
     region: {
-      avgDailyIncomePopulation
+      avgDailyIncomePopulation,
+      avgDailyIncomeInUsd
     },
     reportedCases,
     timeToElapse,
@@ -71,7 +72,7 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.02);
 
   let usdInFight;
-  const computeIncome = population * avgDailyIncomeInUsd;
+  const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUsd;
 
   if (periodType === 'months') {
     usdInFight = timeToElapse * 30;
@@ -81,8 +82,8 @@ const covid19ImpactEstimator = (data) => {
     usdInFight = timeToElapse * 1;
   }
 
-  const impactDollarsInFlight = (impact.InfestionsByRequestTime * avgDailyIncomePopulation * computeIncome) / usdInFight;
-  const severeImpactDollarsInFlight = (severeImpact.InfestionsByRequestTime * avgDailyIncomePopulation * computeIncome) / usdInFight;
+  const impactDollarsInFlight = (impact.InfestionsByRequestTime * computeIncome) / usdInFight;
+  const severeImpactDollarsInFlight = (severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight;
 
   impact.impact.dollarsInFlight = Math.trunc(impactDollarsInFlight);
   severeImpact.dollarsInFlight = Math.trunc(severeImpactDollarsInFlight);
