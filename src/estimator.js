@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
@@ -79,7 +80,7 @@ const covid19ImpactEstimator = (data) => {
   impact.casesForVentilatorsByRequestedTime = Math.trunc(Ventilators);
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
 
-  let usdInFight;
+  let usdInFight = 0;
   const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUsd;
 
   if (periodType === 'months') {
@@ -108,5 +109,9 @@ const covid19ImpactEstimator = (data) => {
     severeImpact
   };
 };
+
+// console.log(covid19.data);
+// console.log(covid19.impact);
+// console.log(covid19.severeImpact);
 
 export default covid19ImpactEstimator;
