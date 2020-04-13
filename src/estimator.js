@@ -65,11 +65,19 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage);
 
   // challenge three
-  impact.casesForICUByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.05);
-  severeImpact.casesForICUByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.05);
+  // computation for impact and severeImpact
+  const CasesforICU = impact.infectionsByRequestedTime * 0.05;
+  const ImpactCasesforICU = severeImpact.infectionsByRequestedTime * 0.05;
 
-  impact.casesForVentilatorsByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.02);
-  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.02);
+  const Ventilators = impact.infectionsByRequestedTime * 0.02;
+  const ImpactVentilators = severeImpact.infectionsByRequestedTime * 0.02;
+
+
+  impact.casesForICUByRequestedTime = Math.trunc(CasesforICU);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(ImpactCasesforICU );
+
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(Ventilators);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
 
   let usdInFight;
   const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUsd;
