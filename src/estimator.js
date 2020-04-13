@@ -69,6 +69,7 @@ const covid19ImpactEstimator = (data) => {
   } else if (periodType === 'weeks') {
     timeToElapse = Math.trunc(timeToElapse * 7);
   } else timeToElapse = Math.trunc(timeToElapse * 1);
+
   // where factor is 10 for a 30 day duration(there are 10 sets of 3 days in a perioid of 30 days) currentlyInfected x 1024
   const timeFactor = (currentlyInfected) => {
     const power = Math.trunc(timeToElapse / 3);
@@ -76,20 +77,20 @@ const covid19ImpactEstimator = (data) => {
   };
 
   // compute AvailableBeds ByRequestedTime
-  const availableBeds = (severeCasesByRequestedTime) => {
-    // assuming that totalhospitalbeds available = 23 - 100%
-    // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
-    // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
-    const bedsAvailable = totalHospitalBeds * 0.35;
-    const shortage = bedsAvailable - severeCasesByRequestedTime;
-    const result = shortage < 0 ? shortage : bedsAvailable;
-    return Math.trunc(result);
-  };
-  const computedollarsinfight = (infectionsByRequestedTime) => {
-    const infections = infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation;
-    const result = infections / timeToElapse;
-    return Math.trunc(result);
-  };
+  // const availableBeds = (severeCasesByRequestedTime) => {
+  //   // assuming that totalhospitalbeds available = 23 - 100%
+  //   // occupied = 65% * 23/100 which is  14.95 beds  ***discard decimal***
+  //   // 100 - 65 = 35 beds availabele 23/100 * 35% = 8.1 beds ***discard decimal***
+  //   const bedsAvailable = totalHospitalBeds * 0.35;
+  //   const shortage = bedsAvailable - severeCasesByRequestedTime;
+  //   const result = shortage < 0 ? shortage : bedsAvailable;
+  //   return Math.trunc(result);
+  // };
+  // const computedollarsinfight = (infectionsByRequestedTime) => {
+  //   const infections = infectionsByRequestedTime * avgDailyIncomeInUSD * avgDailyIncomePopulation;
+  //   const result = infections / timeToElapse;
+  //   return Math.trunc(result);
+  // };
 
   const impact = {};
   impact.currentlyInfected = reportedCases * 10;
@@ -98,7 +99,7 @@ const covid19ImpactEstimator = (data) => {
   const severeImpact = {};
   // challenge one //  can be modified to func estimateCurrentlyInfected {} & const estimateProjectedInfction {}
   severeImpact.currentlyInfected = reportedCases * 50;
-  severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected, periodType, timeToElapse);
+  severeImpact.infectionsByRequestedTime = timeFactor(impact.currentlyInfected);
   // challenge two //  can be modified to func  const estimatedServereCases {} & const estimatedBedSpaceAvailablility {}
   // impact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15); // 15%
   // severeImpact.severeCasesByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.15);
