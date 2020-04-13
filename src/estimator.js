@@ -43,10 +43,7 @@ const covid19ImpactEstimator = (data) => {
       break;
     default:
   }
-  // const timeFactor = (currentlyInfected) => {
-  //   const factor = Math.trunc(timeToElapse / 3);
-  //   return currentlyInfected * 2 ** factor;
-  // };
+
   // infections by time passed
   impact.infectionsByRequestedTime = impact.currentlyInfected * (2 ** timeFactor);
   severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** timeFactor);
