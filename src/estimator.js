@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
@@ -11,7 +12,7 @@ const covid19ImpactEstimator = (data) => {
   const {
     region: {
       avgDailyIncomePopulation,
-      avgDailyIncomeInUsd
+      avgDailyIncomeInUSD
     },
     reportedCases,
     timeToElapse,
@@ -80,25 +81,32 @@ const covid19ImpactEstimator = (data) => {
   impact.casesForVentilatorsByRequestedTime = Math.trunc(Ventilators);
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
 
-  let usdInFight = 0;
-  const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUsd;
+  // computation for dollars in fight
+  const computeIncome = avgDailyIncomePopulation * avgDailyIncomeInUSD;
+  const impactmoneylose = (impact.infectionsByRequestedTime * computeIncome) / timeFactor;
 
-  if (periodType === 'months') {
-    usdInFight = timeToElapse * 30;
+  const severemoneylose = (severeImpact.infectionsByRequestedTime * computeIncome) / timeFactor;
 
-    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
-  } else if (periodType === 'weeks') {
-    usdInFight = timeToElapse * 7;
+  impact.dollarsInFlight = Math.trunc(impactmoneylose);
+  severeImpact.dollarsInFlight = Math.trunc(severemoneylose);
 
-    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-  } else if (periodType === 'days') {
-    usdInFight = timeToElapse * 1;
+  // let usdInFight = 0;
+  // if (periodType === 'months') {
+  //   usdInFight = timeToElapse * 30;
 
-    impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-    severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
-  }
+
+  //   severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * computeIncome) / usdInFight);
+  // } else if (periodType === 'weeks') {
+  //   usdInFight = timeToElapse * 7;
+
+  //   impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
+  //   severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
+  // } else if (periodType === 'days') {
+  //   usdInFight = timeToElapse * 1;
+
+  //   impact.dollarsInFlight = Math.trunc((impact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
+  //   severeImpact.dollarsInFlight = Math.trunc((severeImpact.InfestionsByRequestTime * 0.65 * 1.5 * computeIncome) / usdInFight);
+  // }
 
   // impact.dollarsInFlight = Math.trunc((impact.infectionsByRequestedTime * compute) / usdInFight);
   // severeImpact.dollarsInFlight = Math.trunc((severeImpact.infectionsByRequestedTime * compute) / usdInFight);
@@ -110,8 +118,20 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-// console.log(covid19.data);
-// console.log(covid19.impact);
-// console.log(covid19.severeImpact);
+// Test output
+// const sample = {
+//   region: {
+//     name: 'Africa',
+//     avgAge: 19.7,
+//     avgDailyIncomeInUSD: 4,
+//     avgDailyIncomePopulation: 0.73
+//   },
+//   periodType: 'days',
+//   timeToElapse: 38,
+//   reportedCases: 2747,
+//   population: 92931687,
+//   totalHospitalBeds: 678874
+// };
+// console.log(covid19ImpactEstimator(sample));
 
-export default covid19ImpactEstimator;
+// export default covid19ImpactEstimator;
