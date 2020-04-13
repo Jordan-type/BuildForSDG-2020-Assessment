@@ -9,6 +9,7 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
   const {
     region: {
+      avgDailyIncomePopulation,
       avgDailyIncomeInUsd
     },
     reportedCases,
@@ -66,7 +67,31 @@ const covid19ImpactEstimator = (data) => {
   impact.hospitalBedsByRequestedTime = Math.trunc(impactShortage);
   severeImpact.hospitalBedsByRequestedTime = Math.trunc(severeShortage);
 
+  // challenge three
+  impact.casesForICUByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.05);
+  severeImpact.casesForICUByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.05);
 
+  impact.casesForVentilatorsByRequestedTime = Math.trunc(impact.infectionsByRequestedTime * 0.02);
+  severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(severeImpact.infectionsByRequestedTime * 0.02);
+
+  let usdInFight;
+  const compute = population * avgDailyIncomeInUsd;
+  if (periodType === 'months') {
+    usdInFight = timeToElapse * 30;
+
+    impact.dollarsInFlight = (Math.trunc((impact.infectionsByRequestedTime * compute) / usdInFight));
+    severeImpact.dollarsInFlight = (Math.trunc((severeImpact.infectionsByRequestedTime * compute) / usdInFight));
+  } else if (periodType === 'weeks') {
+    usdInFight = timeToElapse * 7;
+
+    impact.dollarsInFlight = (Math.trunc((impact.infectionsByRequestedTime * compute) / usdInFight));
+    severeImpact.dollarsInFlight = (Math.trunc((severeImpact.infectionsByRequestedTime * compute) / usdInFight));
+  } else if (periodType === 'days') {
+    usdInFight = timeToElapse * 1;
+
+    impact.dollarsInFlight = (Math.trunc((impact.infectionsByRequestedTime * compute) / usdInFight));
+    severeImpact.dollarsInFlight = (Math.trunc((severeImpact.infectionsByRequestedTime * compute) / usdInFight));
+  }
   return {
     data,
     impact,
