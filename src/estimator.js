@@ -74,7 +74,7 @@ const covid19ImpactEstimator = (data) => {
 
 
   impact.casesForICUByRequestedTime = Math.trunc(CasesforICU);
-  severeImpact.casesForICUByRequestedTime = Math.trunc(ImpactCasesforICU );
+  severeImpact.casesForICUByRequestedTime = Math.trunc(ImpactCasesforICU);
 
   impact.casesForVentilatorsByRequestedTime = Math.trunc(Ventilators);
   severeImpact.casesForVentilatorsByRequestedTime = Math.trunc(ImpactVentilators);
