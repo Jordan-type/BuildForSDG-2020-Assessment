@@ -7,40 +7,48 @@ const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
   const {
     region: {
-      avgDailyIncomeInUSD,
-      avgDailyIncomePopulation
+      avgDailyIncomeInUsd
     },
-    periodType,
     reportedCases,
+    timeToElapse,
+    periodType,
+    population,
     totalHospitalBeds
   } = data;
-  const {
-    timeToElapse
-  } = data;
-
-  if (periodType === 'months') timeToElapse = Math.trunc(timeToElapse * 30);
-  else if (periodType === 'weeks') timeToElapse = Math.trunc(timeToElapse * 7);
-  else timeToElapse = Math.trunc(timeToElapse * 1);
-
-  const timeFactor = (currentlyInfected) => {
-    const factor = Math.trunc(timeToElapse / 3);
-    return currentlyInfected * 2 ** factor;
-  };
 
   const impact = {};
 
+  const severeImpact = {};
+
   // challenge 1
   impact.currentlyInfected = reportedCases * 10;
-  impact.infectionsByRequestedTime = timeFactor(
-    impact.currentlyInfected
-  );
-
-  const severeImpact = {};
-  // challenge 1
   severeImpact.currentlyInfected = reportedCases * 50;
-  severeImpact.infectionsByRequestedTime = calculateInfectionsByRequestedTime(
-    severeImpact.currentlyInfected
-  );
+
+  // check if the timeToElapse in in days weeks or months
+
+  let timeFactor;
+
+  switch (periodType.trim().toLowerCase()) {
+    case 'months':
+      timeFactor = Math.trunc((timeToElapse * 30) / 3);
+      break;
+    case 'weeks':
+      timeFactor = Math.trunc((timeToElapse * 7) / 3);
+      break;
+    case 'days':
+      timeFactor = Math.trunc((timeToElapse) / 3);
+      break;
+    default:
+  }
+
+
+  // const timeFactor = (currentlyInfected) => {
+  //   const factor = Math.trunc(timeToElapse / 3);
+  //   return currentlyInfected * 2 ** factor;
+  // };
+  // infections by time passed
+  impact.infectionsByRequestedTime = impact.currentlyInfected * (2 ** timeFactor);
+  severeImpact.infectionsByRequestedTime = severeImpact.currentlyInfected * (2 ** timeFactor);
 
   return {
     data,
@@ -48,3 +56,5 @@ const covid19ImpactEstimator = (data) => {
     severeImpact
   };
 };
+
+export default covid19ImpactEstimator;
