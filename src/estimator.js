@@ -1,4 +1,11 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-sequences */
+/* eslint-disable no-use-before-define */
+/* eslint-disable linebreak-style */
+/* eslint-disable eol-last */
+/* eslint-disable linebreak-style */
+/* eslint-disable radix */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-console */
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
@@ -7,6 +14,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
+const $q = document.querySelector.bind(document);
+const $qa = document.querySelectorAll.bind(document);
+
 const covid19ImpactEstimator = (data) => {
   // Destructuring the given data
   const {
@@ -115,7 +125,7 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-// Test output
+// Test output console
 // const sample = {
 //   region: {
 //     name: 'Africa',
@@ -131,4 +141,125 @@ const covid19ImpactEstimator = (data) => {
 // };
 // console.log(covid19ImpactEstimator(sample));
 
-export default covid19ImpactEstimator;
+// export default covid19ImpactEstimator;
+
+const goEstimate = $q('[data-go-estimate]');
+
+const showAlert = (className, message) => {
+  const div = document.createElement('div');
+  div.className = `alert alert-${className}`;
+  div.innerHTML = `${message}`;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 3000);
+};
+
+goEstimate.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  // input data
+  const pType = $q('[data-period-type]');
+  const tmToElapse = $q('[data-time-to-elapse]');
+  const rCases = $q('[data-reported-cases]');
+  const populatn = $q('[data-population]');
+  const tHospitalBeds = $q('[data-total-hospital-beds]');
+
+  const periodType = pType.value;
+  const timeToElapse = parseInt(tmToElapse.value, radix);
+  const reportedCases = parseInt(rCases.value, radix);
+  const population = parseInt(populatn.value, radix);
+  const totalHospitalBeds = parseInt(tHospitalBeds.value, radix);
+
+  if (!periodType || !timeToElapse || !reportedCases || !population || !totalHospitalBeds) {
+    showAlert('error', 'Oops! Please fill all fields.');
+  } else {
+    goEstimate.disabled = true;
+
+    const input = {
+      region: {
+        name: 'Africa',
+        avgAge: 19.7,
+        avgDailyIncomeInUSD: 5,
+        avgDailyIncomePopulation: 0.71
+      },
+      periodType,
+      timeToElapse,
+      reportedCases,
+      population,
+      totalHospitalBeds
+    };
+    const covid19 = covid19ImpactEstimator(input);
+    const impactUI = $q('#impact');
+    const severeImpactUI = $q('#severeImpact');
+    const impactsContainner = $q('.impacts');
+    const { impact, severeImpact } = covid19[impact, severeImpact];
+    impactUI.innerHTML = `
+      <tr>
+        <th>Currently Infected</th>
+        <td>${impact.currentlyInfected}</td>
+      </tr>
+      <tr>
+        <th>Infections By Requested Time</th>
+        <td>${impact.infectionsByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Severe Cases By Requested Time</th>
+        <td>${impact.severeCasesByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Hospital Beds By Requested Time</th>
+        <td>${impact.hospitalBedsByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Cases For ICU By Requested Time</th>
+        <td>${impact.casesForICUByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Cases For Ventilators By Requested Time</th>
+        <td>${impact.casesForVentilatorsByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Dollars In Flight</th>
+        <td>${impact.dollarsInFlight}</td>
+      </tr>
+    `;
+
+    severeImpactUI.innerHTML = `
+      <tr>
+        <th>Currently Infected</th>
+        <td>${severeImpact.currentlyInfected}</td>
+      </tr>
+      <tr>
+        <th>Infections By Requested Time</th>
+        <td>${severeImpact.infectionsByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Severe Cases By Requested Time</th>
+        <td>${severeImpact.severeCasesByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Hospital Beds By Requested Time</th>
+        <td>${severeImpact.hospitalBedsByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Cases For ICU By Requested Time</th>
+        <td>${severeImpact.casesForICUByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Cases For Ventilators By Requested Time</th>
+        <td>${severeImpact.casesForVentilatorsByRequestedTime}</td>
+      </tr>
+      <tr>
+        <th>Dollars In Flight</th>
+        <td>${severeImpact.dollarsInFlight}</td>
+      </tr>
+    `;
+    showAlert('success', 'Data Submitted, scroll down to view impact analysis.');
+    impactsContainner.classList.remove('is-hidden');
+    goEstimate.disabled = false;
+    pType.value = '';
+    tmToElapse.value = '';
+    rCases.value = '';
+    populatn.value = '';
+    tHospitalBeds.value = '';
+  }
+});
