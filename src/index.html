@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="author" content="Jordan Muthemba">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="one page, Covid19-Estimator, BuildForSDG-2020-Assessment, covid 19 impact analysis and projection">
+  <meta name="description" content="#BuildForSDG-2020-Assessment | COVID-19 ESTIMATOR, Andela and Facebook Assement Challenge">
   <title>#BuildForSDG-2020-Assessment | COVID-19 ESTIMATOR</title>
+  <!--Favicon-->
   <link rel="stylesheet" href="assests/css/bulma.min.css">
   <link rel="stylesheet" href="assests/css/main.css">
 </head>
@@ -49,10 +54,10 @@
   <!-- section -->
   <section class="main-hero hero is-medium is-primary" >
     <div class="hero-body">
-      <div class="container has-text-centered is-purple" >
-        <h1 class="title is-size1 font-black is-uppercase">COVID-19 Estimator</h1>
+      <div class="container has-text-centered" >
+        <h1 class="title is-uppercase">COVID-19 Estimator</h1>
         <h2 class="subtitle">Data Collection/Estimation</h2>
-        <a href="#estimated-data" class="button is-link is-round">Click to View OutPut</a>
+        <a href="#estimated-data" class="button is-link is-round">Scroll to View OutPut</a>
       </div>      
     </div> 
   </section>
@@ -107,8 +112,9 @@
 
       <div class="columns is-multiline">
         <div class="column is-12-tablet  is-6-desktop">
-            <!-- <label class="label" for="period-type"> Period Type</label> -->
+            <!-- <label  for="period-type"> Period Type</label> -->
             <div class="control has-icons-left">
+            <label class="label" for="period-type">Period Type</label>
               <div class="select">
                 <select id="period-type" name="period-type" data-period-type required>
                   <option value="">Pick a period type...</option>
@@ -124,7 +130,7 @@
           </div>
           <div class="column is-12-tablet  is-6-desktop">
           <div class="buttons">
-            <button type="submit" class="button is-primary" data-go-estimate="">Submit</button>
+            <button type="submit" class="button is-primary is-fontblack" data-go-estimate="">Submit</button>
           </div>
         </div>
         </div>
@@ -133,10 +139,10 @@
      <section id="estimated-data">
       <div class="container has-text-centered">
           <h1 class="title">Estimated Data Output</h1>
-          <h2 class="subtitle">Impact/Severe Impact Cases</h2>
+          <h2 class="subtitle is-purple">Impact/Severe Impact Cases</h2>
       </div>
-      <!--  -->
-      <div class="box impacts is-hidden">
+      <!-- Canbe hidden using is-hidden  -->
+      <div class="impacts"> <!-- is-hidden-->
         <div class="columns is-multiline">
           <!-- Impact Cases-->
           <div class="column is-12-tablet is-6-desktop">
@@ -160,8 +166,6 @@
         </div>
       </div>
     </div>
-    </section>
-    <script src="assests/js/all.min.js"></script>
-    <script src="estimator.js"></script>
+   </section>
 </body>
 </html>
