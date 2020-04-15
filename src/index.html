@@ -19,8 +19,9 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png"> 
         <link rel="manifest" href="manifest.json" /> -->
-
-  <link href="assests/css/bulma.min.css" rel="stylesheet" media="all" async>
+  <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link href="assests/css/main.css" rel="stylesheet" media="all" async>
   <!--<link rel="stylesheet" href="assests/css/main.css" media="all" async>-->
 </head>
 <body>
@@ -63,67 +64,47 @@
   <!-- END NAV -->    
   <!-- style="background: #3f4079 url(assests/images/build-sdg.png) no-repeat center bottom" -->
   <!-- section -->
-  <section class="main-hero hero is-medium" >
-    <div class="hero-body">
-      <div class="container has-text-centered" >
-        <h1 class="title is-uppercase">COVID-19 Estimator</h1>
+  
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+      <div class="wrapper wrapper--w680" >
+      <div class="card card-4">
+      <div class="card-body">
+        <h1 class="title">COVID-19 Estimator</h1>
         <h2 class="subtitle">Data Collection/Estimation</h2>
-        <a href="#estimated-data" class="button is-link is-round">Scroll to View OutPut</a>
-      </div>      
-    </div> 
-  </section>
-    
-    <section class="section">
+        <a href="#estimated-data" class="btn btn--pill btn--blue">Scroll to View OutPut</a>    
     <form id="covid-form" name="covid-19-estimator" data-form-estimator>
-      <div class="columns is-multiline">
-      <div class="column is-12-tablet is-6-desktop">
+    <div class="row row-space">
+
+      <div class="col-2">
+       <div class="input-group">
         <label class="label" for="population">Population</label>
-        <div class="control has-icons-left">
-          <input class="input" type="number" id="population" name="population" data-population required="required">
-          <span class="icon is-small is-left">
-            <i class="fas fa-users"></i>
-          </span>
+          <input class="input--style-4" type="number" id="population" name="population" data-population required="required">
+          </div>
         </div>
-      </div>
 
-        <div class="column is-12-tablet is-6-desktop">
+        <div class="col-2">
+          <div class="input-group">
           <label class="label" for="reported-cases">Reported Cases</label>
-          <div class="control has-icons-left">
-            <input class="input" type="number" id="reported-cases" name="reported-cases" data-reported-cases required>
-            <span class="icon is-small is-left">
-              <i class="fas fa-file-alt"></i>
-            </span>
+            <input class="input--style-4" type="number" id="reported-cases" name="reported-cases" data-reported-cases required>
           </div>
         </div>
 
-        <div class="column is-12-tablet is-6-desktop">
+        <div class="col-2">
+        <div class="input-group">
           <label class="label" for="total-hospital-beds">Total Hospital Beds</label>
-          <div class="control has-icons-left">
-            <input class="input" type="number" id="total-hospital-beds" name="total-hospital-beds"
+            <input class="input--style-4" type="number" id="total-hospital-beds" name="total-hospital-beds"
                 data-total-hospital-beds required>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-bed"></i>
-                </span>
           </div>
         </div>
 
-        <div class="column is-12-tablet is-6-desktop">
+        <div class="col-2">
+        <div class="input-group">
           <label class="label" for="time-to-elapse">Time To Elapse</label>
-          <div class="control has-icons-left">
-            <input class="input" type="number" id="time-to-elapse" name="time-to-elapse" data-time-to-elapse required>
-            <span class="icon is-small is-left">
-              <i class="fas fa-clock"></i>
-              </span>
+            <input class="input--style-4" type="number" id="time-to-elapse" name="time-to-elapse" data-time-to-elapse required>
             </div>
           </div>
 
-
-      </div>
-
-      <div class="columns is-multiline">
-        <div class="column is-12-tablet  is-6-desktop">
-            <!-- <label  for="period-type"> Period Type</label> -->
-            <div class="control has-icons-left">
+        <div class="input-group">
             <label class="label" for="period-type">Period Type</label>
               <div class="select">
                 <select id="period-type" name="period-type" data-period-type required>
@@ -133,23 +114,18 @@
                   <option value="months">Months</option>
                 </select>
               </div>
-              <span class="icon is-small is-left">
-                <i class="fas fa-calendar-alt"></i>
-            </span>
           </div>
-          </div>
-          <div class="column is-12-tablet  is-6-desktop">
+          <div class="p-t-15">
           <div class="buttons">
-            <button type="submit" class="button" data-go-estimate="">Submit</button>
+            <button type="submit" class="btn btn--pill btn--blue" data-go-estimate="">Submit</button>
           </div>
-        </div>
-        </div>
       </form>
+
     </section>
      <section id="estimated-data">
       <div class="container has-text-centered">
           <h1 class="title">Estimated Data Output</h1>
-          <h2 class="subtitle">Impact/Severe Impact Cases</h2>
+          <h2 class="title">Impact/Severe Impact Cases</h2>
       </div>
       <!-- Canbe hidden using is-hidden  -->
       <div class="impacts"> <!-- is-hidden-->
@@ -177,5 +153,7 @@
       </div>
     </div>
    </section>
+   </div>
+  </div>
 </body>
 </html>
