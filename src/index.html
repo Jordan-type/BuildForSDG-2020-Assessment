@@ -24,136 +24,96 @@
   <link href="assests/css/main.css" rel="stylesheet" media="all" async>
   <!--<link rel="stylesheet" href="assests/css/main.css" media="all" async>-->
 </head>
-<body>
-<!-- START NAV -->
- <nav class="navbar">
-    <div class="container">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="index.html">
-          <img src="assests/images/logo-dark.png" alt="Logo">
-          <!-- <span>COVID-19 Estimator</span> -->
-       </a>
-        <span class="navbar-burger burger" data-target="navbarMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </div>
-      <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-end">
-          <a href="index.html" class="navbar-item is-active">Home</a>
-          <a href="https://github.com/Jordan-type/" class="navbar-item">Created by: Jordan Muthemba</a>
-          <!-- <a class="navbar-item">Features</a>
-          <a class="navbar-item">Team</a>
-          <a class="navbar-item">Archives</a> -->
-          <!-- <a class="navbar-item">Help</a>
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Account</a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item">Dashboard</a>
-              <a class="navbar-item">Profile</a>
-              <a class="navbar-item">Settings</a>
-              <hr class="navbar-divider">
-              <div class="navbar-item">Logout</div>
-            </div>
-          </div> -->
-        </div>
-      </div>
-    </div>
-  </nav>
-  <!-- END NAV -->    
-  <!-- style="background: #3f4079 url(assests/images/build-sdg.png) no-repeat center bottom" -->
-  <!-- section -->
-  
+<body>  
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
       <div class="wrapper wrapper--w680" >
-      <div class="card card-4">
-      <div class="card-body">
-        <h1 class="title">COVID-19 Estimator</h1>
-        <h2 class="subtitle">Data Collection/Estimation</h2>
-        <a href="#estimated-data" class="btn btn--radius-2 btn--blue">Scroll to View OutPut</a>    
-    <form id="covid-form" name="covid-19-estimator" data-form-estimator>
-    <div class="row row-space">
-
-      <div class="col-2">
-       <div class="input-group">
-        <label class="label" for="population">Population</label>
-          <input class="input--style-4" type="number" id="population" name="population" data-population required="required">
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="input-group">
-          <label class="label" for="reported-cases">Reported Cases</label>
-            <input class="input--style-4" type="number" id="reported-cases" name="reported-cases" data-reported-cases required>
-          </div>
-        </div>
-
-        <div class="col-2">
-        <div class="input-group">
-          <label class="label" for="total-hospital-beds">Total Hospital Beds</label>
-            <input class="input--style-4" type="number" id="total-hospital-beds" name="total-hospital-beds"
+       <div class="card card-4">
+         <div class="card-body">
+         <h1 class="title is-text-centred">COVID-19 Estimator</h1>
+         <h2 class="subtitle is-text-centred">Data Collection/Estimation</h2>
+         <a href="#estimated-data" id="btn--center" class="btn btn--radius-2 btn--blue">Scroll to View OutPut</a>
+             <form id="covid-form" name="covid-19-estimator" data-form-estimator>
+                <div class="row row-space">
+                   <div class="col-2">
+                      <div class="input-group">
+                      <label class="label" for="population">Population</label>
+                      <input class="input--style-4" type="number" id="population" name="population" data-population required="required">
+                      </div>
+                   </div>
+                   <div class="col-2">
+                      <div class="input-group">
+                      <label class="label" for="reported-cases">Reported Cases</label>
+                      <input class="input--style-4" type="number" id="reported-cases" name="reported-cases" data-reported-cases required>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="row row-space">
+                 	<div class="col-2">
+                 		<div class="input-group">
+                 			<label class="label" for="total-hospital-beds">Total Hospital Beds</label>
+                 			<input class="input--style-4" type="number" id="total-hospital-beds" name="total-hospital-beds"
                 data-total-hospital-beds required>
-          </div>
-        </div>
-
-        <div class="col-2">
-        <div class="input-group">
-          <label class="label" for="time-to-elapse">Time To Elapse</label>
-            <input class="input--style-4" type="number" id="time-to-elapse" name="time-to-elapse" data-time-to-elapse required>
             </div>
-          </div>
-
-        <div class="input-group">
-            <label class="label" for="period-type">Period Type</label>
-              <div class="select">
-                <select id="period-type" name="period-type" data-period-type required>
-                  <option value="">Pick a period type...</option>
-                  <option value="days">Days</option>
-                  <option value="weeks">Weeks</option>
-                  <option value="months">Months</option>
-                </select>
-              </div>
-          </div>
-
-          <div class="p-t-15">
-            <button type="submit" class="btn btn--radius-2 btn--blue" data-go-estimate="">Submit</button>
-          </div>
-      </form>
-
-    </section>
-     <section id="estimated-data">
-      <div class="container has-text-centered">
-          <h1 class="title">Estimated Data Output</h1>
-          <h2 class="title">Impact/Severe Impact Cases</h2>
-      </div>
-      <!-- Canbe hidden using is-hidden  -->
+        </div>
+        <div class="col-2">
+        	<div class="input-group">
+        		<label class="label" for="time-to-elapse">Time To Elapse</label>
+        		<input class="input--style-4" type="number" id="time-to-elapse" name="time-to-elapse" data-time-to-elapse required>
+        	</div>
+        </div>
+    </div>
+    <div class="input-group">
+        	<div class="select">
+        		<label class="label" for="period-type">Period Type</label>
+        		<select class="form-control" id="period-type" name="period-type" data-period-type required>
+        			<option value="">Pick a period type...</option>
+        			<option value="days">Days</option>
+        			<option value="weeks">Weeks</option>
+        			<option value="months">Months</option>
+        		</select>
+        	</div>
+        </div>
+    <div class="p-t-15" id="btn--center">
+    	<button type="submit" class="btn btn--radius-2 btn--blue" data-go-estimate="">Submit</button>
+    </div>
+</form> 
+<div class="container has-text-centered">
+	<h1 class="title is-text-centred">Estimated Data Output</h1>
+	<h2 class="subtitle is-text-centred">Impact/Severe Impact Cases</h2>
+</div>
+<!-- Canbe hidden using is-hidden  -->
+      
       <div class="impacts"> <!-- is-hidden-->
-        <div class="columns is-multiline">
+        <div class="row row-space">
+        	<div class="col-2">
           <!-- Impact Cases-->
           <div class="column is-12-tablet is-6-desktop">
-            <h3 class="subtitle has-text-centered">Impact Cases</h3>
+            <h3 class="subtitle is-text-centered">Impact Cases</h3>
             <table class="table is-hoverable is-fullwidth">
               <tbody id="impact">
                 
               </tbody>
             </table>
           </div>
-
+      </div>
+         <div class="col-2">
           <!-- Severe Impact Cases -->
           <div class="column is-12-tablet is-6-desktop">
-            <h3 class="subtitle has-text-centered">Severe Impact Cases</h3>
+            <h3 class="subtitle is-text-centered">Severe Impact Cases</h3>
             <table class="table is-hoverable is-fullwidth">
               <tbody id="severeImpact">
 
               </tbody>
             </table>
           </div>
+      </div>
+        </div>
+    </div> 
+        
+
+         </div>
         </div>
       </div>
-    </div>
-   </section>
-   </div>
-  </div>
+  </div>   
 </body>
 </html>

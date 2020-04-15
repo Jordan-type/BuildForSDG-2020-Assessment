@@ -254,6 +254,11 @@
   /* ==========================================================================
 	 #BUTTON
 	 ========================================================================== */
+#btn--center{ 
+	display: flex; 
+	justify-content: center; 
+}
+
   .btn {
 	display: inline-block;
 	line-height: 50px;
@@ -301,7 +306,6 @@
   .btn--blue:hover {
 	background: #3868cd;
   }
-  
   /* ==========================================================================
 	 #DATE PICKER
 	 ========================================================================== */
@@ -615,8 +619,17 @@
 	font-size: 24px;
 	color: #525252;
 	font-weight: 400;
-	margin-bottom: 40px;
+	margin-bottom: 10px;
   }
+  .subtitle{
+  	font-size: 19px;
+  	color: #525252;
+	font-weight: 400;
+	margin-bottom: 5px;
+  }
+ .is-text-centred{
+ 	text-align: center;
+ }
   
   /* ==========================================================================
 	 #CARD
@@ -648,3 +661,14 @@
 	  padding: 50px 40px;
 	}
   }
+  select.form-control {
+  height: 50px;
+  line-height: 50px;
+}
+.form-control {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
